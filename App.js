@@ -1,15 +1,39 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
 import {vibrate} from './utils'
 
 export default function App() {
+ // const [minuto, setMinuto] = useState(0)
+  const [segundo, setSegundo ] = useState(0);
+
+  useEffect(() => {
+    if (segundo === 30){
+      vibrate()
+    }
+  }, [segundo])
+  function actualizarSegundo(){
+    setSegundo(segundo+1)
+  }
+/*   useEffect(() => {
+    console.log("cambio segundo: ", segundo)
+  }, [segundo]) */
+
+function inicio() {
+  //setInterval(actualizarSegundo, 1000)
+  setInterval(() => {
+    setSegundo(segundo+1)
+  }, 1000);
+}
+  
   return (
     <View style={styles.container}>
-      <Text>Click para hacer vibrar el dispositivo!</Text>
+      <Text>{ segundo }</Text>
       <Button 
-        title="Vibracion"
-        onPress={vibrate}
+        title="Iniciar"
+        onPress={setTimeout(() => {
+          setSegundo(segundo+1)
+        }, 1000)}
       />
       <StatusBar style="auto" />
     </View>
